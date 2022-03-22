@@ -10,7 +10,7 @@ public class AbstractModel <T>{
 	private Timestamp modifiedDate;
 	private String createdBy;
 	private String modifiedBy;
-	private long[] ids;
+	private Long[] ids;
 	private List<T> listResult = new ArrayList<>();
 	private Integer page;
 	private Integer maxPageItem;
@@ -52,10 +52,10 @@ public class AbstractModel <T>{
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-	public long[] getIds() {
+	public Long[] getIds() {
 		return ids;
 	}
-	public void setIds(long[] ids) {
+	public void setIds(Long[] ids) {
 		this.ids = ids;
 	}
 	public List<T> getListResult() {

@@ -8,6 +8,7 @@ public class NewsModel extends AbstractModel<NewsModel>{
 	private Long categoryId;
 	private String categoryCode;
 	
+	
 	public String getTitle() {
 		return title;
 	}
@@ -46,4 +47,5 @@ public class NewsModel extends AbstractModel<NewsModel>{
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
 	}
+	
 }

@@ -14,7 +14,7 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO{
 	}
 
 	@Override
-	public NewsModel getOne(Long id) {
+	public NewsModel findOne(Long id) {
 		String query = "SELECT * FROM news WHERE id = ?";
 		List<NewsModel> newsModel = super.executeQuery(query, id);
 		if(newsModel!=null&&newsModel.size()!=0) {

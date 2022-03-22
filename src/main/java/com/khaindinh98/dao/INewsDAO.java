@@ -8,7 +8,7 @@ public interface INewsDAO extends IGenericDAO<NewsModel>{
 	
 	List<NewsModel> findAll();
 	
-	NewsModel getOne(Long id);
+	NewsModel findOne(Long id);
 	
 	Long insert(NewsModel newsModel);
 	

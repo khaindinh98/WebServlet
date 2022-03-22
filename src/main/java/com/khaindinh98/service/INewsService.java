@@ -8,12 +8,12 @@ public interface INewsService {
 
 	List<NewsModel> findAll();
 
-	NewsModel getOne(Long id);
+	NewsModel findOne(Long id);
 
-	Long insert(NewsModel newsModel);
+	NewsModel insert(NewsModel newsModel);
 
-	void update(NewsModel newsModel);
+	NewsModel update(NewsModel newsModel);
 
-	void delete(Long id);
+	void delete(Long[] ids);
 	
 }
