@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sub4sa
@@ -8,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/taglib.jsp"%>
-<c:redirect url="/trang-chu"/>
+<c:redirect url="/admin-news?type=edit-view"/>
 <html>
 <head>
     <title>Title</title>

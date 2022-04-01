@@ -18,6 +18,7 @@
 		<weld.servlet.version>1.1.0.Final</weld.servlet.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<commons.beanutils>1.9.3</commons.beanutils>
 	</properties>
 
 	<dependencies>
@@ -55,6 +56,11 @@
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
 			<version>${weld.servlet.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons.beanutils}</version>
 		</dependency>
 	</dependencies>
 	<build>
