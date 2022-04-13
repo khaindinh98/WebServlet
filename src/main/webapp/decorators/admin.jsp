@@ -9,79 +9,143 @@
 <%@ include file="/common/taglib.jsp" %>
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="<c:url value='/templates/admin/favicon.ico'/>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta charset="utf-8" />
+        <title>Tables - Ace Admin</title>
 
-        <title>Dashboard Template for Bootstrap</title>
+        <meta name="description" content="Static &amp; Dynamic Tables" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-        <!-- Bootstrap core CSS -->
-        <link href="<c:url value='/templates/admin/css/bootstrap.min.css'/>" rel="stylesheet">
+        <!-- bootstrap & fontawesome -->
+        <link rel="stylesheet" href="<c:url value="/templates/admin/css/bootstrap.min.css" />" />
+        <link rel="stylesheet" href="<c:url value="/templates/admin/font-awesome/4.2.0/css/font-awesome.min.css" />" />
 
-        <!-- Custom styles for this template -->
-        <link href="<c:url value='/templates/admin/css/dashboard.css'/>" rel="stylesheet">
+        <!-- page specific plugin styles -->
 
-        <!-- Bootstrap core JavaScript
-     ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="'+'<c:url value="/templates/admin/js/jquery-slim.min.js"/>'+'"><\/script>')</script>
-        <script src="<c:url value='/templates/admin/js/popper.min.js'/>"></script>
-        <script src="<c:url value='/templates/admin/js/bootstrap.min.js'/>"></script>
-        <script src="<c:url value='/templates/admin/js/holder.min.js'/>"></script>
+        <!-- text fonts -->
+        <link rel="stylesheet" href="<c:url value="/templates/admin/fonts/fonts.googleapis.com.css" />" />
 
+        <!-- ace styles -->
+        <link rel="stylesheet" href="<c:url value="/templates/admin/css/ace.min.css" />" class="ace-main-stylesheet" id="main-ace-style" />
 
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="<c:url value="/templates/admin/css/ace-part2.min.css" />" class="ace-main-stylesheet" />
+        <![endif]-->
 
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="<c:url value="/templates/admin/css/ace-ie.min.css" />" />
+        <![endif]-->
+
+        <!-- inline styles related to this page -->
+
+        <!-- ace settings handler -->
+        <script src="<c:url value="/templates/admin/js/ace-extra.min.js" />"></script>
+
+        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+        <!--[if lte IE 8]>
+        <script src="<c:url value="/templates/admin/js/html5shiv.min.js" />"></script>
+        <script src="<c:url value="/templates/admin/js/respond.min.js" />"></script>
+        <![endif]-->
         <dec:head/>
     </head>
-    <body>
-<%--        <dl>--%>
-<%--            <c:forEach items="${headerValues}" var="entry">--%>
-<%--                <dt>${entry.key}</dt>--%>
-<%--                <c:forEach items="${entry.value}" var="headerValue">--%>
-<%--                    <dd>${headerValue}</dd>--%>
-<%--                </c:forEach>--%>
-<%--            </c:forEach>--%>
-<%--        </dl>--%>
+    <body class="no-skin">
         <%@ include file="/common/admin/header.jsp" %>
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                    <%@ include file="/common/admin/sidebar.jsp"%>
-                </nav>
-                <main role="main" class="col-md-9 col-lg-10 ml-sm-auto p-0">
-<%--                     pt-3 px-4--%>
+        <div class="main-container" id="main-container">
+            <script type="text/javascript">
+                try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+            </script>
+            <%@ include file="/common/admin/sidebar.jsp" %>
 
-                    <c:if test="${not empty model.type}">
-                        <nav class="navbar navbar-light bg-light flex-md-nowrap p-0">
-                            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<c:url value="/admin-news"/>">Section</a>
-    <%--                        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--%>
-                            <ul class="navbar-nav px-3">
-                                <li class="nav-item text-nowrap">
-    <%--                                <a class="nav-link" href="#">Sign out</a>--%>
-                                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view"/>" data-toggle="tooltip" title="Add News">
-                                        <span data-feather="plus-circle"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+            <div class="main-content">
+                <div class="main-content-inner">
 
-                    </c:if>
-                    <dec:body/>
-                </main>
-            </div>
-        </div>
-        <%@ include file="/common/admin/footer.jsp" %>
+                    <div class="page-content">
+                        <%@ include file="/common/admin/ace-settings-container.jsp" %>
+                        <div class="page-header">
+                            <h1>
+                                Tables
+                                <small>
+                                    <i class="ace-icon fa fa-angle-double-right"></i>
+                                    Static &amp; Dynamic Tables
+                                </small>
+                            </h1>
+                        </div><!-- /.page-header -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <dec:body/>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.page-content -->
+                </div>
+            </div><!-- /.main-content -->
 
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
+
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+            </a>
+        </div><!-- /.main-container -->
+
+        <!-- basic scripts -->
+
+        <!--[if !IE]> -->
+        <script src="<c:url value="/templates/admin/js/jquery.2.1.1.min.js" />"></script>
+
+        <!-- <![endif]-->
+
+        <!--[if IE]>
+        <script src="<c:url value="/templates/admin/js/jquery.1.11.1.min.js" />"></script>
+        <![endif]-->
+
+        <!--[if !IE]> -->
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='<c:url value="/templates/admin/js/jquery.min.js" />'>"+"<"+"/script>");
         </script>
 
+        <!-- <![endif]-->
+
+        <!--[if IE]>
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='<c:url value="/templates/admin/js/jquery1x.min.js" />'>"+"<"+"/script>");
+        </script>
+        <![endif]-->
+        <script type="text/javascript">
+            if('ontouchstart' in document.documentElement) document.write("<script src='<c:url value="/templates/admin/js/jquery.mobile.custom.min.js" />'>"+"<"+"/script>");
+        </script>
+        <script src="<c:url value="/templates/admin/js/bootstrap.min.js" />"></script>
+
+        <!-- page specific plugin scripts -->
+        <c:if test="${model.type == 'edit-view'}">
+            <!--[if lte IE 8]>
+            <script src="<c:url value="/templates/admin/js/excanvas.min.js" />"></script>
+            <![endif]-->
+            <script src="<c:url value="/templates/admin/js/jquery-ui.custom.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/jquery.ui.touch-punch.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/chosen.jquery.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/fuelux.spinner.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/bootstrap-datepicker.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/bootstrap-timepicker.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/moment.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/daterangepicker.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/bootstrap-datetimepicker.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/bootstrap-colorpicker.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/jquery.knob.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/jquery.autosize.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/jquery.inputlimiter.1.3.1.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/jquery.maskedinput.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/bootstrap-tag.min.js" />"></script>
+        </c:if>
+        <!-- page specific plugin scripts -->
+        <c:if test="${model.type == 'list-view'}">
+            <script src="<c:url value="/templates/admin/js/jquery.dataTables.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/jquery.dataTables.bootstrap.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/dataTables.tableTools.min.js" />"></script>
+            <script src="<c:url value="/templates/admin/js/dataTables.colVis.min.js" />"></script>
+        </c:if>
+        <!-- ace scripts -->
+        <script src="<c:url value="/templates/admin/js/ace-elements.min.js" />"></script>
+        <script src="<c:url value="/templates/admin/js/ace.min.js" />"></script>
     </body>
 </html>
