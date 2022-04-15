@@ -2,21 +2,28 @@ package com.khaindinh98.dao.impl;
 
 import java.util.List;
 
+import com.khaindinh98.dao.ICategoryDAO;
 import com.khaindinh98.dao.INewsDAO;
+import com.khaindinh98.mapper.NewsMapper;
 import com.khaindinh98.model.NewsModel;
 
+import javax.inject.Inject;
+
 public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO{
+
+	@Inject
+	private NewsMapper newsMapper;
 
 	@Override
 	public List<NewsModel> findAll() {
 		String query = "SELECT * FROM news";
-		return super.executeQuery(query);
+		return super.executeQuery(newsMapper, query);
 	}
 
 	@Override
 	public NewsModel findOne(Long id) {
 		String query = "SELECT * FROM news WHERE id = ?";
-		List<NewsModel> newsModel = super.executeQuery(query, id);
+		List<NewsModel> newsModel = super.executeQuery(newsMapper, query, id);
 		if(newsModel!=null&&newsModel.size()!=0) {
 			return newsModel.get(0);
 		}

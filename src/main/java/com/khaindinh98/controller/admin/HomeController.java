@@ -14,27 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = {"/admin-news"})
+@WebServlet(urlPatterns = {"/admin-homepage"})
 public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doGet(req, resp);
-//        PrintWriter out = resp.getWriter();
-//        out.println("Testing");
-        NewsModel newsModel = FormUtil.getInstance().toModel(req, NewsModel.class);
-        if(newsModel.getType()!=null) {
-            if (newsModel.getType().equals(SystemConstant.LIST)) {
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/news/list-view.jsp");
-                requestDispatcher.forward(req, resp);
-            } else if (newsModel.getType().equals(SystemConstant.EDIT)) {
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/news/edit-view.jsp");
-                requestDispatcher.forward(req, resp);
-            }
-        }else{
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/news/dashboard.jsp");
-            requestDispatcher.forward(req, resp);
-        }
-        req.setAttribute("model", newsModel);
-
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/dashboard.jsp");
+        requestDispatcher.forward(req, resp);
     }
 }

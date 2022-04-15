@@ -16,11 +16,8 @@ import com.khaindinh98.util.DAOUtil;
 
 public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
-	@Inject
-	public IRowMapper<T> rowMapper;
-
 	@Override
-	public List<T> executeQuery(String query, Object... parameters) {
+	public List<T> executeQuery(IRowMapper<T> rowMapper, String query, Object... parameters) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;

@@ -3,20 +3,26 @@ package com.khaindinh98.dao.impl;
 import java.util.List;
 
 import com.khaindinh98.dao.ICategoryDAO;
+import com.khaindinh98.mapper.CategoryMapper;
 import com.khaindinh98.model.CategoryModel;
 
+import javax.inject.Inject;
+
 public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategoryDAO{
+
+	@Inject
+	private CategoryMapper categoryMapper;
 
 	@Override
 	public List<CategoryModel> findAll() {
 		String query = "SELECT * FROM category";
-		return super.executeQuery(query);
+		return super.executeQuery(categoryMapper, query);
 	}
 
 	@Override
 	public CategoryModel getOne(Long id) {
 		String query = "SELECT * FROM category WHERE id = ?";
-		List<CategoryModel> categoryModel = super.executeQuery(query, id);
+		List<CategoryModel> categoryModel = super.executeQuery(categoryMapper, query, id);
 		if(categoryModel!=null&&categoryModel.size()!=0) {
 			return categoryModel.get(0);
 		}

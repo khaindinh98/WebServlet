@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/taglib.jsp"%>
-<c:redirect url="/admin-news?type=edit-view"/>
+<c:redirect url="/admin-homepage"/>
 <html>
 <head>
     <title>Title</title>

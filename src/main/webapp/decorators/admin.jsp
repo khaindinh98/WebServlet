@@ -56,7 +56,7 @@
                 <main role="main" class="col-md-9 col-lg-10 ml-sm-auto p-0">
 <%--                     pt-3 px-4--%>
 
-                    <c:if test="${not empty model.type}">
+                    <c:if test="${not empty newsModel.type}">
                         <nav class="navbar navbar-light bg-light flex-md-nowrap p-0">
                             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<c:url value="/admin-news"/>">Section</a>
     <%--                        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--%>
@@ -69,7 +69,6 @@
                                 </li>
                             </ul>
                         </nav>
-
                     </c:if>
                     <dec:body/>
                 </main>
