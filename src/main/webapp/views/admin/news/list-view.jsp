@@ -33,14 +33,10 @@
                             <td>${news.content}</td>
                             <td>
                                 <span>
-                                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view&id=${news.id}"/>" data-toggle="tooltip" title="Add News">
-                                        <span data-feather="plus-circle"></span>
-                                    </a>
+                                    <button type="button" class="btn btn-primary" id="edit-news-${news.id}" onclick="edit_news(${news.id})">Edit</button>
                                 </span>
                                 <span>
-                                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view"/>" data-toggle="tooltip" title="Add News">
-                                        <span data-feather="plus-minus"></span>
-                                    </a>
+                                    <button type="button" class="btn btn-secondary" id="delete-news-${news.id}" onclick="delete_news(${news.id})">Delete</button>
                                 </span>
                             </td>
                         </tr>
@@ -49,5 +45,13 @@
                 </tbody>
             </table>
         </div>
+        <script>
+            function edit_news(news_id){
+                alert(news_id);
+            }
+            function delete_news(news_id){
+                alert(news_id);
+            }
+        </script>
     </body>
 </html>

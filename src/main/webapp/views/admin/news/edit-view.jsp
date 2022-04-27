@@ -12,7 +12,7 @@
     <head>
     </head>
     <body>
-        <form class="needs-validation p-5" novalidate>
+        <form class="needs-validation p-5" novalidate onsubmit="create_news();">
             <div class="row">
                 <div class="col-6 mb-3">
                     <label for="createdBy">Created By</label>
@@ -82,7 +82,7 @@
             </div>
 <%--            <hr class="mb-4">--%>
 
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
         </form>
         <script>
             // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -104,6 +104,11 @@
                         }, false);
                     });
                 }, false);
+
+                function create_news(){
+                    $("#");
+                }
+
             })();
         </script>
     </body>
