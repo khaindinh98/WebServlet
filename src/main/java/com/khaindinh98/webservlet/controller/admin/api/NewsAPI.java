@@ -13,12 +13,21 @@ import com.khaindinh98.webservlet.model.NewsModel;
 import com.khaindinh98.webservlet.service.impl.NewsService;
 import com.khaindinh98.webservlet.util.JSONUtil;
 
-@WebServlet(urlPatterns = {"/api-admin-news"})
+@WebServlet(urlPatterns = {"/api-admin-news/news"})
 public class NewsAPI extends HttpServlet{
 	
 	@Inject
 	private NewsService newsService;
-	
+
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		req.setCharacterEncoding("UTF-8");
+//		resp.setContentType("application/json");
+//		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
+//		NewsModel newsModel = newsService.insert(jsonUtil.toModel(NewsModel.class));
+//		jsonUtil.toOutputStream(resp.getOutputStream(), newsModel);
+//	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub

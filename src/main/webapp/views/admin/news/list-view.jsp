@@ -17,20 +17,35 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Header</th>
-                    <th>Header</th>
-                    <th>Header</th>
-                    <th>Header</th>
+                    <th>Title</th>
+                    <th>Short Description</th>
+                    <th>Content</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>ipsum</td>
-                    <td>dolor</td>
-                    <td>sit</td>
-                </tr>
+                <c:if test="${not empty listNews}">
+                    <c:forEach var="news" items="${listNews}">
+                        <tr>
+                            <td>1</td>
+                            <td>${news.title}</td>
+                            <td>${news.shortDescription}</td>
+                            <td>${news.content}</td>
+                            <td>
+                                <span>
+                                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view&id=${news.id}"/>" data-toggle="tooltip" title="Add News">
+                                        <span data-feather="plus-circle"></span>
+                                    </a>
+                                </span>
+                                <span>
+                                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view"/>" data-toggle="tooltip" title="Add News">
+                                        <span data-feather="plus-minus"></span>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
                 </tbody>
             </table>
         </div>
