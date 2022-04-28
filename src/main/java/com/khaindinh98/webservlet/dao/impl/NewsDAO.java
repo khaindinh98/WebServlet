@@ -38,8 +38,9 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO{
 	public Long insert(NewsModel newsModel) {
 		String query = "INSERT INTO news (title, content, thumbnail, shortdescription, categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		String categoryCode = newsModel.getCategoryCode();
-		CategoryModel category = categoryDAO.findByCategoryCode(categoryCode);
-		return super.insert(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), category.getId(), newsModel.getCreatedAt(), newsModel.getCreatedBy());
+		CategoryModel categoryModel = categoryDAO.findByCategoryCode(categoryCode);
+		Long categoryId = categoryModel!=null?categoryModel.getId():null;
+		return super.insert(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), categoryId, newsModel.getCreatedAt(), newsModel.getCreatedBy());
 	}
 
 	@Override

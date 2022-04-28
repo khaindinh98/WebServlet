@@ -34,11 +34,12 @@ public class NewsController extends HttpServlet {
 //        logger.info("------------------"+req.getContextPath());
 //        logger.info("------------------"+req.getServletPath());
         NewsModel newsModel = FormUtil.getInstance().toModel(req, NewsModel.class);
-
+        String typeView = newsModel.getType();
         if(newsModel.getType()!=null) {
             if (newsModel.getType().equals(SystemConstant.LIST)) {
                 List<NewsModel> listNews = newsService.findAll();
                 req.setAttribute("listNews", listNews);
+                req.setAttribute("typeView", typeView);
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/news/list-view.jsp");
                 requestDispatcher.forward(req, resp);
             } else if (newsModel.getType().equals(SystemConstant.EDIT)) {

@@ -56,16 +56,17 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		Long id = null;
 		try {
 			conn = DAOUtil.getConnection();
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			DAOUtil.setParameters(pstmt, parameters);
-			pstmt.executeUpdate();
+			int update = pstmt.executeUpdate();
 			rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
+			if (update!=-1 && rs.next()) {
+				id = rs.getLong(1);
 				conn.commit();
-				return rs.getLong(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,7 +85,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return id;
 	}
 
 	@Override

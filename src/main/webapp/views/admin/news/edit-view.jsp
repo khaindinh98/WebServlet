@@ -49,7 +49,7 @@
             <div class="mb-3">
                 <label for="shortDescription">Short Description</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="shortDescription" name="shortDescription" placeholder="Short Description" value="${newsModel.title}" required>
+                    <input type="text" class="form-control" id="shortDescription" name="shortDescription" placeholder="Short Description" value="${newsModel.shortDescription}" required>
                     <div class="invalid-feedback" style="width: 100%;">
                         Short Description is required.
                     </div>
@@ -81,7 +81,7 @@
                 </div>
             </div>
 <%--            <hr class="mb-4">--%>
-
+            <input id="id" type="hidden" value="${newsModel.id}"/>
             <button id="btn-submit" class="btn btn-primary btn-lg btn-block" type="button">Submit</button>
         </form>
         <script>
@@ -110,19 +110,38 @@
                     $("#form-news").serializeArray().forEach((e)=>{
                         form_data[e.name] = e.value;
                     });
-                    $.ajax({
-                        url:"<c:url value="/api-admin-news/news"/>",
-                        contentType:"application/json",
-                        data:JSON.stringify(form_data),
-                        type:"POST",
-                        success:function (){
-                            let url_list_news = "<c:url value="/admin-news?type=list"/>";
-                            window.location.href = url_list_news;
-                        },
-                        error:function(){
-                            alert("Tạo thành công");
-                        }
-                    });
+                    if($("#id").val()!=""){
+                        $.ajax({
+                            url:"<c:url value="/api-admin-news/news"/>",
+                            contentType:"application/json",
+                            data:JSON.stringify(form_data),
+                            type:"POST",
+                            success:function (){
+                                alert("Tạo thành công");
+                                let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                                window.location.href = url_list_news;
+                            },
+                            error:function(){
+                                alert("Tạo không thành công");
+                            }
+                        });
+                    } else{
+                        $.ajax({
+                            url:"<c:url value="/api-admin-news/news"/>",
+                            contentType:"application/json",
+                            data:JSON.stringify(form_data),
+                            type:"PUT",
+                            success:function (){
+                                alert("Cập nhật thành công");
+                                let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                                window.location.href = url_list_news;
+                            },
+                            error:function(){
+                                alert("Cập nhật không thành công");
+                            }
+                        });
+                    }
+
                 });
 
             })();

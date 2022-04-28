@@ -34,10 +34,10 @@
                             <td>${news.content}</td>
                             <td>
                                 <span>
-                                    <button type="button" class="btn btn-primary" id="edit-news-${news.id}" onclick="edit_news(${news.id})">Edit</button>
+                                    <button type="button" class="btn btn-primary" id="edit-news-${news.id}" onclick="edit_news(${news.id});">Edit</button>
                                 </span>
                                 <span>
-                                    <button type="button" class="btn btn-secondary" id="delete-news-${news.id}" onclick="delete_news(${news.id})">Delete</button>
+                                    <button type="button" class="btn btn-secondary" id="delete-news-${news.id}" onclick="delete_news(${news.id});">Delete</button>
                                 </span>
                             </td>
                         </tr>
@@ -46,26 +46,27 @@
                 </tbody>
             </table>
         </div>
-        <script>
-            function edit_news(news_id){
-                alert(news_id);
-                let url_edit_news = "<c:url value="/admin-news?type=edit-view"/>&id="+news_id;
-                window.location.href = url_edit_news;
-            }
-            function delete_news(news_id){
-                alert(news_id);
-                $.ajax({
-                    url:"<c:url value="/api-admin-news/news"/>?id="+news_id,
-                    type:"DELETE",
-                    success:function (){
-                        let url_list_news = "<c:url value="/admin-news?type=list"/>"";
-                        window.location.href = url_list_news;
-                    },
-                    error:function(){
-                        alert("Xóa không thành công");
-                    }
-                });
-            }
+        <script type="text/javascript">
+                function edit_news(news_id){
+                    alert(news_id);
+                    let url_edit_news = "<c:url value="/admin-news?type=edit-view"/>&id="+news_id;
+                    window.location.href = url_edit_news;
+                }
+
+                function delete_news(news_id){
+                    alert(news_id);
+                    $.ajax({
+                        url:"<c:url value="/api-admin-news/news"/>?id="+news_id,
+                        type:"DELETE",
+                        success:function (){
+                            let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                            window.location.href = url_list_news;
+                        },
+                        error:function(){
+                            alert("Xóa không thành công");
+                        }
+                    });
+                }
         </script>
     </body>
 </html>

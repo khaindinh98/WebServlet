@@ -34,6 +34,9 @@ public class DAOUtil {
             } else if (obj instanceof String) {
                 pstmt.setString(i + 1, (String) obj);
             }
+            else {
+                pstmt.setNull(i + 1, java.sql.Types.NULL);
+            }
         }
     }
 }
