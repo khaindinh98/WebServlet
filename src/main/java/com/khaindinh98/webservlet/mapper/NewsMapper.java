@@ -14,13 +14,14 @@ public class NewsMapper implements IRowMapper<NewsModel>{
 			news.setId(resultSet.getLong("id"));
 			news.setTitle(resultSet.getString("title"));
 			news.setContent(resultSet.getString("content"));
-			news.setCategoryId(resultSet.getLong("categoryid"));
+			news.setCategoryName(resultSet.getString("name"));
+			news.setCategoryCode(resultSet.getString("code"));
 			news.setThumbnail(resultSet.getString("thumbnail"));
 			news.setShortDescription(resultSet.getString("shortdescription"));
-			news.setCreatedDate(resultSet.getTimestamp("createddate"));
+			news.setCreatedAt(resultSet.getTimestamp("createddate"));
 			news.setCreatedBy(resultSet.getString("createdby"));
 			if (resultSet.getTimestamp("modifieddate") != null) {
-				news.setModifiedDate(resultSet.getTimestamp("modifieddate"));
+				news.setModifiedAt(resultSet.getTimestamp("modifieddate"));
 			}
 			if (resultSet.getString("modifiedby") != null) {
 				news.setModifiedBy(resultSet.getString("modifiedby"));

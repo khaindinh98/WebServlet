@@ -2,6 +2,7 @@ package com.khaindinh98.webservlet.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,7 +17,7 @@ public class JSONUtil {
         //do nothing
     }
 
-    public static JSONUtil getInstance(InputStream inputStream){
+    public static JSONUtil getInstance(BufferedReader inputStream){
         if(instance==null){
             instance = new JSONUtil();
         }
@@ -24,12 +25,17 @@ public class JSONUtil {
         return instance;
     }
 
-    private void setValue(InputStream inputStream){
+    private void setValue(BufferedReader inputStream){
         this.value = new StringBuilder();
-        Scanner scanner = new Scanner(inputStream);
         String line;
-        while ((line = scanner.nextLine())!=null){
-            this.value.append(line);
+        try {
+            while (true){
+                if (!((line = inputStream.readLine())!=null)) break;
+                    this.value.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.value = new StringBuilder();
         }
     }
 

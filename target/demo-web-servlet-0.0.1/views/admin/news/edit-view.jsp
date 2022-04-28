@@ -12,7 +12,7 @@
     <head>
     </head>
     <body>
-        <form class="needs-validation p-5" novalidate>
+        <form id="form-news" class="needs-validation p-5" novalidate>
             <div class="row">
                 <div class="col-6 mb-3">
                     <label for="createdBy">Created By</label>
@@ -29,15 +29,15 @@
             </div>
             <div class="row">
                 <div class="col-6 mb-3">
-                    <label for="updatedBy">Updated By</label>
+                    <label for="modifiedBy">Updated By</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="updatedBy" name="updatedBy" readonly>
+                        <input type="text" class="form-control" id="modifiedBy" name="modifiedBy" readonly>
                     </div>
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="updatedAt">Updated At</label>
+                    <label for="modifiedAt">Updated At</label>
                     <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="updatedAt" name="updatedAt" readonly>
+                        <input type="datetime-local" class="form-control" id="modifiedAt" name="modifiedAt" readonly>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <div class="mb-3">
                 <label for="shortDescription">Short Description</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="shortDescription" name="shortDescription" placeholder="Short Description" required>
+                    <input type="text" class="form-control" id="shortDescription" name="shortDescription" placeholder="Short Description" value="${newsModel.title}" required>
                     <div class="invalid-feedback" style="width: 100%;">
                         Short Description is required.
                     </div>
@@ -57,12 +57,12 @@
             </div>
 
             <div class="mb-3">
-                <label for="category">Category</label>
-                <select class="custom-select d-block w-100" id="category" name="category" required>
+                <label for="categoryCode">Category</label>
+                <select class="custom-select d-block w-100" id="categoryCode" name="categoryCode" required>
                     <option value="">--None--</option>
                     <c:if test="${not empty listCategories}">
                         <c:forEach var="catagory" items="${listCategories}">
-                            <option value="${catagory.code}">${catagory.name}</option>
+                            <option value="${catagory.code}"<c:if test="${catagory.name == newsModel.categoryName}">selected</c:if>>${catagory.name}</option>
                         </c:forEach>
                     </c:if>
                 </select>
@@ -72,9 +72,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="description">Description</label>
+                <label for="content">Content</label>
                 <div class="input-group">
-                    <textarea type="text" class="form-control" id="description" name="description" placeholder="Description" required></textarea>
+                    <textarea type="text" class="form-control" id="content" name="content" placeholder="Content" required>${newsModel.content}</textarea>
                     <div class="invalid-feedback" style="width: 100%;">
                         Description is required.
                     </div>
@@ -82,7 +82,7 @@
             </div>
 <%--            <hr class="mb-4">--%>
 
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            <button id="btn-submit" class="btn btn-primary btn-lg btn-block" type="button">Submit</button>
         </form>
         <script>
             // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -104,6 +104,27 @@
                         }, false);
                     });
                 }, false);
+
+                $("#btn-submit").click(function () {
+                    var form_data = {};
+                    $("#form-news").serializeArray().forEach((e)=>{
+                        form_data[e.name] = e.value;
+                    });
+                    $.ajax({
+                        url:"<c:url value="/api-admin-news/news"/>",
+                        contentType:"application/json",
+                        data:JSON.stringify(form_data),
+                        type:"POST",
+                        success:function (){
+                            let url_list_news = "<c:url value="/admin-news?type=list"/>";
+                            window.location.href = url_list_news;
+                        },
+                        error:function(){
+                            alert("Tạo thành công");
+                        }
+                    });
+                });
+
             })();
         </script>
     </body>

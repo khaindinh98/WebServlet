@@ -34,14 +34,14 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
+				if (conn != null) {
+					conn.close();
 				}
 				if (pstmt != null) {
 					pstmt.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -71,14 +71,14 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
+				if (conn != null) {
+					conn.close();
 				}
 				if (pstmt != null) {
 					pstmt.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -107,14 +107,14 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
+				if (conn != null) {
+					conn.close();
 				}
 				if (pstmt != null) {
 					pstmt.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

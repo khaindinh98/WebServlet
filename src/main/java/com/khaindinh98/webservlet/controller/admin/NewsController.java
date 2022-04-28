@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 @WebServlet(urlPatterns = {"/admin-news"})
 public class NewsController extends HttpServlet {
 
-    private Logger logger = Logger.getLogger("com.khaindinh98.webservlet.controller.admin.NewsController");
+    private Logger logger = Logger.getLogger(NewsController.class.toString());
 
     @Inject
     private ICategoryService categoryService;
@@ -34,7 +34,6 @@ public class NewsController extends HttpServlet {
 //        logger.info("------------------"+req.getContextPath());
 //        logger.info("------------------"+req.getServletPath());
         NewsModel newsModel = FormUtil.getInstance().toModel(req, NewsModel.class);
-        req.setAttribute("newsModel", newsModel);
 
         if(newsModel.getType()!=null) {
             if (newsModel.getType().equals(SystemConstant.LIST)) {
@@ -44,9 +43,16 @@ public class NewsController extends HttpServlet {
                 requestDispatcher.forward(req, resp);
             } else if (newsModel.getType().equals(SystemConstant.EDIT)) {
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/news/edit-view.jsp");
+                if(newsModel.getId()!=null) {
+                    newsModel = newsService.findOne(newsModel.getId());
+                }else{
+                    newsModel = new NewsModel();
+                }
+                req.setAttribute("newsModel", newsModel);
                 List<CategoryModel> listCategories = categoryService.findAll();
                 req.setAttribute("listCategories", listCategories);
                 requestDispatcher.forward(req, resp);
+
             }else{
                 resp.sendRedirect(req.getContextPath() + "/admin-homepage");
             }

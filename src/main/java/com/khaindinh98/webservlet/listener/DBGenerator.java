@@ -1,7 +1,6 @@
 package com.khaindinh98.webservlet.listener;
 
 import com.khaindinh98.webservlet.util.DAOUtil;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -9,10 +8,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 public class DBGenerator implements ServletContextListener {
 
-    private Logger logger = Logger.getLogger(DBGenerator.class);
+    private Logger logger = Logger.getLogger(DBGenerator.class.toString());
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {

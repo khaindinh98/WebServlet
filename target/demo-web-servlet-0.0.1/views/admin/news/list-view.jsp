@@ -30,6 +30,7 @@
                             <td>1</td>
                             <td>${news.title}</td>
                             <td>${news.shortDescription}</td>
+                            <td>${news.categoryName}</td>
                             <td>${news.content}</td>
                             <td>
                                 <span>
@@ -48,9 +49,22 @@
         <script>
             function edit_news(news_id){
                 alert(news_id);
+                let url_edit_news = "<c:url value="/admin-news?type=edit-view"/>&id="+news_id;
+                window.location.href = url_edit_news;
             }
             function delete_news(news_id){
                 alert(news_id);
+                $.ajax({
+                    url:"<c:url value="/api-admin-news/news"/>?id="+news_id,
+                    type:"DELETE",
+                    success:function (){
+                        let url_list_news = "<c:url value="/admin-news?type=list"/>"";
+                        window.location.href = url_list_news;
+                    },
+                    error:function(){
+                        alert("Xóa không thành công");
+                    }
+                });
             }
         </script>
     </body>

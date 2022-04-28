@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.khaindinh98.webservlet.model.NewsModel;
 import com.khaindinh98.webservlet.service.impl.NewsService;
+import com.khaindinh98.webservlet.util.FormUtil;
 import com.khaindinh98.webservlet.util.JSONUtil;
 
 @WebServlet(urlPatterns = {"/api-admin-news/news"})
@@ -34,8 +35,9 @@ public class NewsAPI extends HttpServlet{
 //		super.doPost(req, resp);
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
-        JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
-		NewsModel newsModel = newsService.insert(jsonUtil.toModel(NewsModel.class));
+        JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
+		NewsModel newsModel = jsonUtil.toModel(NewsModel.class);
+		newsModel = newsService.insert(newsModel);
 		jsonUtil.toOutputStream(resp.getOutputStream(), newsModel);
 	}
 	
@@ -45,7 +47,7 @@ public class NewsAPI extends HttpServlet{
 //		super.doPut(req, resp);
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
-		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
+		JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
 		NewsModel newNewsModel = newsService.update(jsonUtil.toModel(NewsModel.class));
 		jsonUtil.toOutputStream(resp.getOutputStream(), newNewsModel);
 	}
@@ -55,8 +57,10 @@ public class NewsAPI extends HttpServlet{
 //		super.doDelete(req, resp);
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
-		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
-		newsService.delete(jsonUtil.toModel(NewsModel.class).getIds());
+//		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
+		NewsModel newsModel = FormUtil.getInstance().toModel(req, NewsModel.class);
+//		newsService.delete(jsonUtil.toModel(NewsModel.class).getIds());
+		newsService.delete(new Long[]{newsModel.getId()});
 		resp.getOutputStream().print("{}");
 	}
 }

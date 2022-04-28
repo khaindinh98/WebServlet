@@ -6,8 +6,8 @@ import java.util.List;
 
 public class AbstractModel <T>{
 	private Long id;
-	private Timestamp createdDate;
-	private Timestamp modifiedDate;
+	private Timestamp createdAt;
+	private Timestamp modifiedAt;
 	private String createdBy;
 	private String modifiedBy;
 	private Long[] ids;
@@ -28,17 +28,17 @@ public class AbstractModel <T>{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Timestamp getCreatedDate() {
-		return createdDate;
+	public Timestamp getCreatedAt() {
+		return createdAt;
 	}
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
-	public Timestamp getModifiedDate() {
-		return modifiedDate;
+	public Timestamp getModifiedAt() {
+		return modifiedAt;
 	}
-	public void setModifiedDate(Timestamp modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setModifiedAt(Timestamp modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 	public String getCreatedBy() {
 		return createdBy;

@@ -30,6 +30,16 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 	}
 
 	@Override
+	public CategoryModel findByCategoryCode(String categoryCode) {
+		String query = "SELECT * FROM category WHERE code = ?";
+		List<CategoryModel> categoryModel = super.executeQuery(categoryMapper, query, categoryCode);
+		if(categoryModel!=null&&categoryModel.size()!=0) {
+			return categoryModel.get(0);
+		}
+		return null;
+	}
+
+	@Override
 	public Long insert(CategoryModel categoryModel) {
 //		String query = "INSERT INTO news (title, content, thumbnail, shortdescription, categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		String query = "INSERT INTO category(code, name) VALUES(?,?)";
