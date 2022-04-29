@@ -1,6 +1,11 @@
 package com.khaindinh98.webservlet.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +45,9 @@ public class JSONUtil {
     }
 
     public <T> T toModel(Class<T> tClass){
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = JsonMapper.builder()
+                .findAndAddModules()
+                .build();
         T model = null;
         try {
             model = mapper.readValue(this.value.toString(), tClass);
@@ -51,7 +58,9 @@ public class JSONUtil {
     }
 
     public static void toOutputStream(OutputStream outputStream, Object model){
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = JsonMapper.builder()
+                .findAndAddModules()
+                .build();
         try {
             mapper.writeValue(outputStream, model);
         } catch (IOException e) {

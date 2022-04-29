@@ -17,34 +17,44 @@
                 <div class="col-6 mb-3">
                     <label for="createdBy">Created By</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="createdBy" name="createdBy" readonly>
+                        <input type="text" class="form-control" id="createdBy" name="createdBy" value="${newsModel.createdBy}" readonly>
                     </div>
                 </div>
                 <div class="col-6 mb-3">
                     <label for="createdAt">Created At</label>
                     <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="createdAt" name="createdAt" readonly>
+                        <input type="datetime-local" class="form-control" id="createdAt" name="createdAt" value="${newsModel.createdAt}"  readonly>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 mb-3">
-                    <label for="modifiedBy">Updated By</label>
+                    <label for="modifiedBy">Modified By</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="modifiedBy" name="modifiedBy" readonly>
+                        <input type="text" class="form-control" id="modifiedBy" name="modifiedBy" value="${newsModel.modifiedBy}" readonly>
                     </div>
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="modifiedAt">Updated At</label>
+                    <label for="modifiedAt">Modified At</label>
                     <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="modifiedAt" name="modifiedAt" readonly>
+                        <input type="datetime-local" class="form-control" id="modifiedAt" name="modifiedAt" value="${newsModel.modifiedAt}" readonly>
                     </div>
                 </div>
             </div>
-            <script>
-                $("#createdAt").val("<%=LocalDateTime.now()%>");
-                $("#updatedAt").val("<%=LocalDateTime.now()%>");
-            </script>
+<%--            <script>--%>
+<%--                $("#createdAt").val("<%=LocalDateTime.now()%>");--%>
+<%--                $("#updatedAt").val("<%=LocalDateTime.now()%>");--%>
+<%--            </script>--%>
+
+            <div class="mb-3">
+                <label for="title">Title</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="${newsModel.title}" required>
+                    <div class="invalid-feedback" style="width: 100%;">
+                        Title is required.
+                    </div>
+                </div>
+            </div>
 
             <div class="mb-3">
                 <label for="shortDescription">Short Description</label>
@@ -81,7 +91,7 @@
                 </div>
             </div>
 <%--            <hr class="mb-4">--%>
-            <input id="id" type="hidden" value="${newsModel.id}"/>
+            <input id="id" name="id" type="hidden" value="${newsModel.id}"/>
             <button id="btn-submit" class="btn btn-primary btn-lg btn-block" type="button">Submit</button>
         </form>
         <script>
@@ -110,22 +120,8 @@
                     $("#form-news").serializeArray().forEach((e)=>{
                         form_data[e.name] = e.value;
                     });
-                    if($("#id").val()!=""){
-                        $.ajax({
-                            url:"<c:url value="/api-admin-news/news"/>",
-                            contentType:"application/json",
-                            data:JSON.stringify(form_data),
-                            type:"POST",
-                            success:function (){
-                                alert("Tạo thành công");
-                                let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
-                                window.location.href = url_list_news;
-                            },
-                            error:function(){
-                                alert("Tạo không thành công");
-                            }
-                        });
-                    } else{
+                    var news_id = $("#form-news #id").val();
+                    if(news_id && news_id!=""){
                         $.ajax({
                             url:"<c:url value="/api-admin-news/news"/>",
                             contentType:"application/json",
@@ -133,11 +129,26 @@
                             type:"PUT",
                             success:function (){
                                 alert("Cập nhật thành công");
-                                let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
-                                window.location.href = url_list_news;
+                                <%--let url_list_news = "<c:url value="/admin-news?type=list-view"/>";--%>
+                                <%--window.location.href = url_list_news;--%>
                             },
                             error:function(){
                                 alert("Cập nhật không thành công");
+                            }
+                        });
+                    } else{
+                        $.ajax({
+                            url:"<c:url value="/api-admin-news/news"/>",
+                            contentType:"application/json",
+                            data:JSON.stringify(form_data),
+                            type:"POST",
+                            success:function (){
+                                alert("Tạo thành công");
+                                <%--let url_list_news = "<c:url value="/admin-news?type=list-view"/>";--%>
+                                <%--window.location.href = url_list_news;--%>
+                            },
+                            error:function(){
+                                alert("Tạo không thành công");
                             }
                         });
                     }

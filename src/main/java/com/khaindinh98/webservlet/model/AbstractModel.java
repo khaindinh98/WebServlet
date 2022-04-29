@@ -1,13 +1,13 @@
 package com.khaindinh98.webservlet.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AbstractModel <T>{
 	private Long id;
-	private Timestamp createdAt;
-	private Timestamp modifiedAt;
+	private LocalDateTime createdAt;
+	private LocalDateTime modifiedAt;
 	private String createdBy;
 	private String modifiedBy;
 	private Long[] ids;
@@ -28,16 +28,16 @@ public class AbstractModel <T>{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Timestamp getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	public Timestamp getModifiedAt() {
+	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
-	public void setModifiedAt(Timestamp modifiedAt) {
+	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 	public String getCreatedBy() {

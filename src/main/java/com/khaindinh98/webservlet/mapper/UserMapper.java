@@ -12,6 +12,7 @@ public class UserMapper implements IRowMapper<UserModel>{
 	public UserModel mapping(ResultSet resultSet) {
 		try {
 			UserModel userModel = new UserModel();
+			userModel.setUsername(resultSet.getString("username"));
 			userModel.setId(resultSet.getLong("id"));
 			userModel.setRoleCode("ADMIN_ROLE");
 			userModel.setRoleName("ADMIN_ROLE");

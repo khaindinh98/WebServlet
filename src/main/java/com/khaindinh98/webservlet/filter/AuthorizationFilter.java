@@ -30,8 +30,11 @@ public class AuthorizationFilter implements Filter{
         for(Cookie cookie:req.getCookies()) {
             logger.info(cookie.getName()+"-"+cookie.getValue());
         }
+
         HttpSession session = req.getSession();
         UserModel userModel = (UserModel) session.getAttribute("userModel");
+        if(userModel!=null)
+            logger.info("--------------------Username:"+userModel.getUsername());
         String requestURI = req.getServletPath();
         if(requestURI.contains("/admin")) {
             if(userModel!=null && userModel.getRoleCode().equals(RoleModel.ADMIN_ROLE)){

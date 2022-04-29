@@ -1,9 +1,7 @@
 package com.khaindinh98.webservlet.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class DAOUtil {
@@ -33,8 +31,9 @@ public class DAOUtil {
                 pstmt.setLong(i + 1, (Long) obj);
             } else if (obj instanceof String) {
                 pstmt.setString(i + 1, (String) obj);
-            }
-            else {
+            } else if (obj instanceof LocalDateTime) {
+                pstmt.setTimestamp(i + 1, Timestamp.valueOf((LocalDateTime) obj));
+            }else {
                 pstmt.setNull(i + 1, java.sql.Types.NULL);
             }
         }

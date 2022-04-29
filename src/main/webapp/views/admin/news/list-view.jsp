@@ -19,6 +19,7 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Short Description</th>
+                    <th>Category</th>
                     <th>Content</th>
                     <th></th>
                 </tr>

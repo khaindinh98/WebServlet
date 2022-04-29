@@ -1,5 +1,6 @@
 package com.khaindinh98.webservlet.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.khaindinh98.webservlet.dao.INewsDAO;
@@ -36,17 +37,20 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO{
 
 	@Override
 	public Long insert(NewsModel newsModel) {
-		String query = "INSERT INTO news (title, content, thumbnail, shortdescription, categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO news (title, content, thumbnail, shortdescription, categoryid, createddate, createdby, modifieddate, modifiedby) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String categoryCode = newsModel.getCategoryCode();
 		CategoryModel categoryModel = categoryDAO.findByCategoryCode(categoryCode);
 		Long categoryId = categoryModel!=null?categoryModel.getId():null;
-		return super.insert(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), categoryId, newsModel.getCreatedAt(), newsModel.getCreatedBy());
+		return super.insert(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), categoryId, newsModel.getCreatedAt(), newsModel.getCreatedBy(), newsModel.getModifiedAt(), newsModel.getModifiedBy());
 	}
 
 	@Override
 	public void update(NewsModel newsModel) {
-		String query = "UPDATE news SET title = ?, content = ?, thumbnail = ?, shortdescription = ?, categoryid = ?, createddate = ?, createdby = ? WHERE id = ?";
-		super.executeUpdate(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), newsModel.getCategoryName(), newsModel.getCreatedAt(), newsModel.getCreatedBy(), newsModel.getId());
+		String query = "UPDATE news SET title = ?, content = ?, thumbnail = ?, shortdescription = ?, categoryid = ?, modifieddate = ?, modifiedby = ? WHERE id = ?";
+		String categoryCode = newsModel.getCategoryCode();
+		CategoryModel categoryModel = categoryDAO.findByCategoryCode(categoryCode);
+		Long categoryId = categoryModel!=null?categoryModel.getId():null;
+		super.executeUpdate(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), categoryId, newsModel.getModifiedAt(), newsModel.getModifiedBy(), newsModel.getId());
 	}
 
 	@Override
