@@ -20,7 +20,7 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 	}
 
 	@Override
-	public CategoryModel getOne(Long id) {
+	public CategoryModel findOne(Long id) {
 		String query = "SELECT * FROM category WHERE id = ?";
 		List<CategoryModel> categoryModel = super.executeQuery(categoryMapper, query, id);
 		if(categoryModel!=null&&categoryModel.size()!=0) {
@@ -40,10 +40,11 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 	}
 
 	@Override
-	public Long insert(CategoryModel categoryModel) {
+	public CategoryModel insert(CategoryModel categoryModel) {
 //		String query = "INSERT INTO news (title, content, thumbnail, shortdescription, categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		String query = "INSERT INTO category(code, name) VALUES(?,?)";
-		return super.insert(query, categoryModel.getCode(), categoryModel.getName());
+		Long id = super.insert(query, categoryModel.getCode(), categoryModel.getName());
+		return findOne(id);
 	}
 
 	@Override

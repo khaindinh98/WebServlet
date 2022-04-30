@@ -8,11 +8,11 @@ public interface ICategoryDAO extends IGenericDAO<CategoryModel>{
 	
 	List<CategoryModel> findAll();
 	
-	CategoryModel getOne(Long id);
+	CategoryModel findOne(Long id);
 
 	CategoryModel findByCategoryCode(String categoryCode);
 
-	Long insert(CategoryModel categoryModel);
+	CategoryModel insert(CategoryModel categoryModel);
 	
 	void update(CategoryModel categoryModel);
 	

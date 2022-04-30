@@ -19,12 +19,12 @@ public class CategoryService implements ICategoryService{
 	}
 
 	@Override
-	public CategoryModel getOne(Long id) {
-		return categoryDAO.getOne(id);
+	public CategoryModel findOne(Long id) {
+		return categoryDAO.findOne(id);
 	}
 
 	@Override
-	public Long insert(CategoryModel categoryModel) {
+	public CategoryModel insert(CategoryModel categoryModel) {
 		return categoryDAO.insert(categoryModel);
 	}
 
@@ -38,4 +38,10 @@ public class CategoryService implements ICategoryService{
 		categoryDAO.delete(id);
 	}
 
+	@Override
+	public void delete(Long[] ids) {
+		for(Long id:ids) {
+			categoryDAO.delete(id);
+		}
+	}
 }

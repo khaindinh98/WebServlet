@@ -1,8 +1,12 @@
 package com.khaindinh98.webservlet.controller.admin.api;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import com.khaindinh98.webservlet.model.CategoryModel;
+import com.khaindinh98.webservlet.model.NewsModel;
+import com.khaindinh98.webservlet.model.UserModel;
+import com.khaindinh98.webservlet.service.ICategoryService;
+import com.khaindinh98.webservlet.service.impl.NewsService;
+import com.khaindinh98.webservlet.util.FormUtil;
+import com.khaindinh98.webservlet.util.JSONUtil;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,28 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.khaindinh98.webservlet.model.NewsModel;
-import com.khaindinh98.webservlet.model.UserModel;
-import com.khaindinh98.webservlet.service.INewsService;
-import com.khaindinh98.webservlet.service.impl.NewsService;
-import com.khaindinh98.webservlet.util.FormUtil;
-import com.khaindinh98.webservlet.util.JSONUtil;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 @WebServlet(urlPatterns = {"/api-admin-news/news"})
-public class NewsAPI extends HttpServlet{
+public class CategoryAPI extends HttpServlet{
 	
 	@Inject
-	private INewsService newsService;
-
-//	@Override
-//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		req.setCharacterEncoding("UTF-8");
-//		resp.setContentType("application/json");
-//		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
-//		NewsModel newsModel = newsService.insert(jsonUtil.toModel(NewsModel.class));
-//		jsonUtil.toOutputStream(resp.getOutputStream(), newsModel);
-//	}
+	private ICategoryService categoryService;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,9 +31,9 @@ public class NewsAPI extends HttpServlet{
 		resp.setContentType("application/json");
 
         JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
-		NewsModel newsModel = jsonUtil.toModel(NewsModel.class);
-		newsModel = newsService.insert(newsModel);
-		jsonUtil.toOutputStream(resp.getOutputStream(), newsModel);
+		CategoryModel categoryModel = jsonUtil.toModel(CategoryModel.class);
+		categoryModel = categoryService.insert(categoryModel);
+		jsonUtil.toOutputStream(resp.getOutputStream(), categoryModel);
 	}
 	
 	@Override
@@ -55,13 +45,13 @@ public class NewsAPI extends HttpServlet{
 		JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
 		UserModel userModel = (UserModel) req.getSession().getAttribute("userModel");
 
-		NewsModel newsModel = jsonUtil.toModel(NewsModel.class);
-		newsModel.setModifiedAt(LocalDateTime.now());
+		CategoryModel categoryModel = jsonUtil.toModel(CategoryModel.class);
+		categoryModel.setModifiedAt(LocalDateTime.now());
 		if(userModel!=null) {
-			newsModel.setModifiedBy(userModel.getUsername());
+			categoryModel.setModifiedBy(userModel.getUsername());
 		}
-		newsModel = newsService.update(newsModel);
-		jsonUtil.toOutputStream(resp.getOutputStream(), newsModel);
+		categoryService.update(categoryModel);
+		jsonUtil.toOutputStream(resp.getOutputStream(), categoryModel);
 	}
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,9 +60,9 @@ public class NewsAPI extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 //		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
-		NewsModel newsModel = FormUtil.getInstance().toModel(req, NewsModel.class);
+		CategoryModel categoryModel = FormUtil.getInstance().toModel(req, CategoryModel.class);
 //		newsService.delete(jsonUtil.toModel(NewsModel.class).getIds());
-		newsService.delete(newsModel.getId());
+		categoryService.delete(categoryModel.getId());
 		resp.getOutputStream().print("{}");
 	}
 }

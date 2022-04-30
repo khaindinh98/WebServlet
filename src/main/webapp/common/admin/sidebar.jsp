@@ -13,6 +13,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin-category?type=list-view"/>">
+                <span data-feather="file"></span>
+                Categories
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#">
                 <span data-feather="file"></span>
                 Orders

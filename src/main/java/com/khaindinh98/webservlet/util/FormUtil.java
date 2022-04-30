@@ -24,7 +24,7 @@ public class FormUtil {
 
     public <T> T toModel(HttpServletRequest req, Class<T> tClass){
         try {
-            T model = tClass.newInstance();
+            T model = tClass.getConstructor().newInstance();
             this.beanUtils.populate(model, req.getParameterMap());
             return model;
         } catch (InstantiationException e) {
@@ -33,6 +33,8 @@ public class FormUtil {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }

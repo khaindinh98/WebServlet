@@ -36,6 +36,11 @@ public class NewsService implements INewsService {
 	}
 
 	@Override
+	public void delete(Long id) {
+		newsDAO.delete(id);
+	}
+
+	@Override
 	public void delete(Long[] ids) {
 		for(Long id:ids) {
 			newsDAO.delete(id);

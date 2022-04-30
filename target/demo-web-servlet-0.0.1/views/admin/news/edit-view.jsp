@@ -23,7 +23,7 @@
                 <div class="col-6 mb-3">
                     <label for="createdAt">Created At</label>
                     <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="createdAt" name="createdAt" value="${newsModel.createdAt}"  readonly>
+                        <input type="text" class="form-control" id="createdAt" name="createdAt" value="${newsModel.createdAt}"  readonly>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="col-6 mb-3">
                     <label for="modifiedAt">Modified At</label>
                     <div class="input-group">
-                        <input type="datetime-local" class="form-control" id="modifiedAt" name="modifiedAt" value="${newsModel.modifiedAt}" readonly>
+                        <input type="text" class="form-control" id="modifiedAt" name="modifiedAt" value="${newsModel.modifiedAt}" readonly>
                     </div>
                 </div>
             </div>

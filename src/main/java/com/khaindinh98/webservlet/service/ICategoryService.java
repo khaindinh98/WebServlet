@@ -8,12 +8,14 @@ public interface ICategoryService {
 	
 	List<CategoryModel> findAll();
 	
-	CategoryModel getOne(Long id);
-	
-	Long insert(CategoryModel categoryModel);
+	CategoryModel findOne(Long id);
+
+	CategoryModel insert(CategoryModel categoryModel);
 	
 	void update(CategoryModel categoryModel);
 	
 	void delete(Long id);
-	
+
+	void delete(Long[] id);
+
 }
