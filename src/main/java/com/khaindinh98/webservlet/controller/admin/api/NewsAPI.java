@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.khaindinh98.webservlet.model.NewsModel;
 import com.khaindinh98.webservlet.model.UserModel;
 import com.khaindinh98.webservlet.service.INewsService;
-import com.khaindinh98.webservlet.service.impl.NewsService;
 import com.khaindinh98.webservlet.util.FormUtil;
 import com.khaindinh98.webservlet.util.JSONUtil;
 
@@ -43,6 +42,9 @@ public class NewsAPI extends HttpServlet{
         JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
 		NewsModel newsModel = jsonUtil.toModel(NewsModel.class);
 		newsModel = newsService.insert(newsModel);
+		if(newsModel==null){
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 		jsonUtil.toOutputStream(resp.getOutputStream(), newsModel);
 	}
 	

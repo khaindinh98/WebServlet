@@ -12,6 +12,18 @@
     <head>
     </head>
     <body>
+        <nav class="navbar navbar-light bg-light flex-md-nowrap p-0">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<c:url value="/admin-news"/>">News</a>
+                <%--                        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--%>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                        <%--                                <a class="nav-link" href="#">Sign out</a>--%>
+                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view"/>" data-toggle="tooltip" title="Add News">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -49,13 +61,11 @@
         </div>
         <script type="text/javascript">
                 function edit_news(news_id){
-                    alert(news_id);
                     let url_edit_news = "<c:url value="/admin-news?type=edit-view"/>&id="+news_id;
                     window.location.href = url_edit_news;
                 }
 
                 function delete_news(news_id){
-                    alert(news_id);
                     $.ajax({
                         url:"<c:url value="/api-admin-news/news"/>?id="+news_id,
                         type:"DELETE",

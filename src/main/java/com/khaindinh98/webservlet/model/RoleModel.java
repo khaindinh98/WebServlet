@@ -2,8 +2,8 @@ package com.khaindinh98.webservlet.model;
 
 public class RoleModel extends AbstractModel<RoleModel>{
 
-    public final static String ADMIN_ROLE="ADMIN_ROLE";
-    public final static String USER_ROLE="USER_ROLE";
+    public final static String ADMIN_ROLE="ADMIN";
+    public final static String USER_ROLE="USER";
 
     private String name;
     private String code;

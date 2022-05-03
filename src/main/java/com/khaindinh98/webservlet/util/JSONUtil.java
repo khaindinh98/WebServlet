@@ -35,8 +35,10 @@ public class JSONUtil {
         String line;
         try {
             while (true){
-                if (!((line = inputStream.readLine())!=null)) break;
-                    this.value.append(line);
+                if (!((line = inputStream.readLine())!=null)) {
+                    break;
+                }
+                this.value.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();

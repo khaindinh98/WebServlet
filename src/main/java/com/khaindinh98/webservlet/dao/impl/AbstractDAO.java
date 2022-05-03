@@ -9,39 +9,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.khaindinh98.webservlet.dao.IGenericDAO;
-import com.khaindinh98.webservlet.mapper.IRowMapper;
+import com.khaindinh98.webservlet.mapper.AbstractRowMapper;
+import com.khaindinh98.webservlet.model.AbstractModel;
 import com.khaindinh98.webservlet.util.DAOUtil;
 
-public abstract class AbstractDAO<T> implements IGenericDAO<T> {
+public abstract class AbstractDAO<T extends AbstractModel> implements IGenericDAO<T> {
 
 	@Override
-	public List<T> executeQuery(IRowMapper<T> rowMapper, String query, Object... parameters) {
+	public List<T> executeQuery(AbstractRowMapper<T> rowMapper, String query, Object... parameters) {
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		try {
-			conn = DAOUtil.getConnection();
-			pstmt = conn.prepareStatement(query);
-			DAOUtil.setParameters(pstmt, parameters);
-			rs = pstmt.executeQuery();
+			connection = DAOUtil.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			DAOUtil.setParameters(preparedStatement, parameters);
+			resultSet = preparedStatement.executeQuery();
 			List<T> result = new ArrayList<T>();
-			while (rs.next()) {
-				result.add(rowMapper.mapping(rs));
+			while (resultSet.next()) {
+				result.add(rowMapper.mapping(resultSet));
 			}
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (conn != null) {
-					conn.close();
+				if (resultSet != null) {
+					resultSet.close();
 				}
-				if (pstmt != null) {
-					pstmt.close();
+				if (preparedStatement != null) {
+					preparedStatement.close();
 				}
-				if (rs != null) {
-					rs.close();
+				if (connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -53,33 +54,39 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
 	@Override
 	public Long insert(String query, Object... parameters) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		Long id = null;
 		try {
-			conn = DAOUtil.getConnection();
-			conn.setAutoCommit(false);
-			pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			DAOUtil.setParameters(pstmt, parameters);
-			int update = pstmt.executeUpdate();
-			rs = pstmt.getGeneratedKeys();
-			if (update!=-1 && rs.next()) {
-				id = rs.getLong(1);
-				conn.commit();
+			connection = DAOUtil.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			DAOUtil.setParameters(preparedStatement, parameters);
+			int update = preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			if (update!=-1 && resultSet.next()) {
+				id = resultSet.getLong(1);
+				connection.commit();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException ex) {
+				e.printStackTrace();
+//				throw new RuntimeException(ex);
+			}
 		} finally {
 			try {
-				if (conn != null) {
-					conn.close();
+				if (resultSet != null) {
+					resultSet.close();
 				}
-				if (pstmt != null) {
-					pstmt.close();
+				if (preparedStatement != null) {
+					preparedStatement.close();
 				}
-				if (rs != null) {
-					rs.close();
+				if (connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -90,37 +97,42 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
 	@Override
 	public void executeUpdate(String query, Object... parameters) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		try {
-			conn = DAOUtil.getConnection();
-			conn.setAutoCommit(false);
-			pstmt = conn.prepareStatement(query);
-			DAOUtil.setParameters(pstmt, parameters);
-			pstmt.executeUpdate();
-			int affectedRows = pstmt.getUpdateCount();
+			connection = DAOUtil.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(query);
+			DAOUtil.setParameters(preparedStatement, parameters);
+			preparedStatement.executeUpdate();
+			int affectedRows = preparedStatement.getUpdateCount();
 			if (affectedRows != 0) {
-				conn.commit();
+				connection.commit();
 				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+//				throw new RuntimeException(ex);
+			}
 		} finally {
 			try {
-				if (conn != null) {
-					conn.close();
+				if (resultSet != null) {
+					resultSet.close();
 				}
-				if (pstmt != null) {
-					pstmt.close();
+				if (preparedStatement != null) {
+					preparedStatement.close();
 				}
-				if (rs != null) {
-					rs.close();
+				if (connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
 }

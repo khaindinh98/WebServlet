@@ -6,7 +6,6 @@ import com.khaindinh98.webservlet.service.IUserService;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class UserService implements IUserService {
 

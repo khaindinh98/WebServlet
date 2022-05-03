@@ -43,7 +43,6 @@ public class NewsController extends HttpServlet {
             if (typeView.equals(SystemConstant.LIST)) {
                 List<NewsModel> listNews = newsService.findAll();
                 req.setAttribute("listNews", listNews);
-                req.setAttribute("typeView", typeView);
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/news/list-view.jsp");
                 requestDispatcher.forward(req, resp);
             } else if (typeView.equals(SystemConstant.EDIT)) {
@@ -64,10 +63,10 @@ public class NewsController extends HttpServlet {
                 requestDispatcher.forward(req, resp);
 
             }else{
-                resp.sendRedirect(req.getContextPath() + "/admin-homepage");
+//                resp.sendRedirect(req.getContextPath() + "/admin-homepage");
             }
         }else{
-            resp.sendRedirect(req.getContextPath() + "/admin-homepage");
+//            resp.sendRedirect(req.getContextPath() + "/admin-homepage");
         }
     }
 

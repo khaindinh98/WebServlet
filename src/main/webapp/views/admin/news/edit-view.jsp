@@ -12,7 +12,7 @@
     <head>
     </head>
     <body>
-        <form id="form-news" class="needs-validation p-5" novalidate>
+        <form id="form-news" class="needs-validation p-5" method="POST" novalidate>
             <div class="row">
                 <div class="col-6 mb-3">
                     <label for="createdBy">Created By</label>
@@ -92,7 +92,7 @@
             </div>
 <%--            <hr class="mb-4">--%>
             <input id="id" name="id" type="hidden" value="${newsModel.id}"/>
-            <button id="btn-submit" class="btn btn-primary btn-lg btn-block" type="button">Submit</button>
+            <button id="btn-submit" class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
         </form>
         <script>
             // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -106,54 +106,52 @@
                     // Loop over them and prevent submission
                     var validation = Array.prototype.filter.call(forms, function(form) {
                         form.addEventListener('submit', function(event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
+                            event.preventDefault();
+                            event.stopPropagation();
+                            if (form.checkValidity() === true) {
+                                form.classList.add('was-validated');
+                                var form_data = {};
+                                $("#form-news").serializeArray().forEach((e)=>{
+                                    form_data[e.name] = e.value;
+                                });
+                                var news_id = $("#form-news #id").val();
+                                if(news_id && news_id!=""){
+                                    $.ajax({
+                                        url:"<c:url value="/api-admin-news/news"/>",
+                                        contentType:"application/json",
+                                        data:JSON.stringify(form_data),
+                                        type:"PUT",
+                                        success:function (){
+                                            alert("Cập nhật thành công");
+                                            let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                                            window.location.href = url_list_news;
+                                        },
+                                        error:function(){
+                                            alert("Cập nhật không thành công");
+                                        }
+                                    });
+                                } else{
+                                    $.ajax({
+                                        url:"<c:url value="/api-admin-news/news"/>",
+                                        contentType:"application/json",
+                                        data:JSON.stringify(form_data),
+                                        type:"POST",
+                                        success:function (){
+                                            alert("Tạo thành công");
+                                            let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                                            window.location.href = url_list_news;
+                                        },
+                                        error:function(){
+                                            alert("Tạo không thành công");
+                                        }
+                                    });
+                                }
                             }
-                            form.classList.add('was-validated');
+
+
                         }, false);
                     });
                 }, false);
-
-                $("#btn-submit").click(function () {
-                    var form_data = {};
-                    $("#form-news").serializeArray().forEach((e)=>{
-                        form_data[e.name] = e.value;
-                    });
-                    var news_id = $("#form-news #id").val();
-                    if(news_id && news_id!=""){
-                        $.ajax({
-                            url:"<c:url value="/api-admin-news/news"/>",
-                            contentType:"application/json",
-                            data:JSON.stringify(form_data),
-                            type:"PUT",
-                            success:function (){
-                                alert("Cập nhật thành công");
-                                <%--let url_list_news = "<c:url value="/admin-news?type=list-view"/>";--%>
-                                <%--window.location.href = url_list_news;--%>
-                            },
-                            error:function(){
-                                alert("Cập nhật không thành công");
-                            }
-                        });
-                    } else{
-                        $.ajax({
-                            url:"<c:url value="/api-admin-news/news"/>",
-                            contentType:"application/json",
-                            data:JSON.stringify(form_data),
-                            type:"POST",
-                            success:function (){
-                                alert("Tạo thành công");
-                                <%--let url_list_news = "<c:url value="/admin-news?type=list-view"/>";--%>
-                                <%--window.location.href = url_list_news;--%>
-                            },
-                            error:function(){
-                                alert("Tạo không thành công");
-                            }
-                        });
-                    }
-
-                });
 
             })();
         </script>

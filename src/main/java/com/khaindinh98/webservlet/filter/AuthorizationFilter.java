@@ -27,9 +27,11 @@ public class AuthorizationFilter implements Filter{
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         logger.info("--------------------Cookies:");
-        for(Cookie cookie:req.getCookies()) {
-            logger.info(cookie.getName()+"-"+cookie.getValue());
-        }
+        //for(Cookie cookie:req.getCookies()) {
+            //if(cookie!=null) {
+                //logger.info(cookie.getName() + "-" + cookie.getValue());
+            //}
+        //}
 
         HttpSession session = req.getSession();
         UserModel userModel = (UserModel) session.getAttribute("userModel");

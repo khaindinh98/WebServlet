@@ -12,7 +12,7 @@
     <head>
     </head>
     <body>
-        <form id="form-news" class="needs-validation p-5" method="POST" novalidate>
+        <form id="form-category" class="needs-validation p-5" method="POST" novalidate>
             <div class="row">
                 <div class="col-6 mb-3">
                     <label for="createdBy">Created By</label>
@@ -41,57 +41,28 @@
                     </div>
                 </div>
             </div>
-<%--            <script>--%>
-<%--                $("#createdAt").val("<%=LocalDateTime.now()%>");--%>
-<%--                $("#updatedAt").val("<%=LocalDateTime.now()%>");--%>
-<%--            </script>--%>
 
             <div class="mb-3">
-                <label for="title">Title</label>
+                <label for="name">Name</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="${newsModel.title}" required>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${categoryModel.name}" required>
                     <div class="invalid-feedback" style="width: 100%;">
-                        Title is required.
+                        Name is required.
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="shortDescription">Short Description</label>
+                <label for="code">Code</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="shortDescription" name="shortDescription" placeholder="Short Description" value="${newsModel.shortDescription}" required>
+                    <textarea type="text" class="form-control" id="code" name="code" placeholder="Code" required>${categoryModel.code}</textarea>
                     <div class="invalid-feedback" style="width: 100%;">
-                        Short Description is required.
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="categoryCode">Category</label>
-                <select class="custom-select d-block w-100" id="categoryCode" name="categoryCode" required>
-                    <option value="">--None--</option>
-                    <c:if test="${not empty listCategories}">
-                        <c:forEach var="catagory" items="${listCategories}">
-                            <option value="${catagory.code}"<c:if test="${catagory.name == newsModel.categoryName}">selected</c:if>>${catagory.name}</option>
-                        </c:forEach>
-                    </c:if>
-                </select>
-                <div class="invalid-feedback">
-                    Please select category.
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="content">Content</label>
-                <div class="input-group">
-                    <textarea type="text" class="form-control" id="content" name="content" placeholder="Content" required>${newsModel.content}</textarea>
-                    <div class="invalid-feedback" style="width: 100%;">
-                        Description is required.
+                        Code is required.
                     </div>
                 </div>
             </div>
 <%--            <hr class="mb-4">--%>
-            <input id="id" name="id" type="hidden" value="${newsModel.id}"/>
+            <input id="id" name="id" type="hidden" value="${categoryModel.id}"/>
             <button id="btn-submit" class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
         </form>
         <script>
@@ -111,19 +82,19 @@
                             if (form.checkValidity() === true) {
                                 form.classList.add('was-validated');
                                 var form_data = {};
-                                $("#form-news").serializeArray().forEach((e)=>{
+                                $("#form-category").serializeArray().forEach((e)=>{
                                     form_data[e.name] = e.value;
                                 });
                                 var news_id = $("#form-news #id").val();
                                 if(news_id && news_id!=""){
                                     $.ajax({
-                                        url:"<c:url value="/api-admin-news/news"/>",
+                                        url:"<c:url value="/api-admin-category/categories"/>",
                                         contentType:"application/json",
                                         data:JSON.stringify(form_data),
                                         type:"PUT",
                                         success:function (){
                                             alert("Cập nhật thành công");
-                                            let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                                            let url_list_news = "<c:url value="/admin-category?type=list-view"/>";
                                             window.location.href = url_list_news;
                                         },
                                         error:function(){
@@ -132,13 +103,13 @@
                                     });
                                 } else{
                                     $.ajax({
-                                        url:"<c:url value="/api-admin-news/news"/>",
+                                        url:"<c:url value="/api-admin-category/categories"/>",
                                         contentType:"application/json",
                                         data:JSON.stringify(form_data),
                                         type:"POST",
                                         success:function (){
                                             alert("Tạo thành công");
-                                            let url_list_news = "<c:url value="/admin-news?type=list-view"/>";
+                                            let url_list_news = "<c:url value="/admin-category?type=list-view"/>";
                                             window.location.href = url_list_news;
                                         },
                                         error:function(){
@@ -147,12 +118,9 @@
                                     });
                                 }
                             }
-
-
                         }, false);
                     });
                 }, false);
-
             })();
         </script>
     </body>

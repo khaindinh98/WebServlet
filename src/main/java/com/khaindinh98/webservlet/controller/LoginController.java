@@ -2,7 +2,7 @@ package com.khaindinh98.webservlet.controller;
 
 import com.khaindinh98.webservlet.model.RoleModel;
 import com.khaindinh98.webservlet.model.UserModel;
-import com.khaindinh98.webservlet.service.impl.UserService;
+import com.khaindinh98.webservlet.service.IUserService;
 import com.khaindinh98.webservlet.util.FormUtil;
 
 import javax.inject.Inject;
@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LoginController extends HttpServlet {
 
     @Inject
-    private UserService userService;
+    private IUserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

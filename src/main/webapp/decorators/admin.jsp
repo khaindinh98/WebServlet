@@ -57,21 +57,6 @@
                 </nav>
                 <main role="main" class="col-md-9 col-lg-10 ml-sm-auto p-0">
 <%--                     pt-3 px-4--%>
-
-                    <c:if test="${typeView=='list-view'}">
-                        <nav class="navbar navbar-light bg-light flex-md-nowrap p-0">
-                            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<c:url value="/admin-news"/>">Section</a>
-    <%--                        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--%>
-                            <ul class="navbar-nav px-3">
-                                <li class="nav-item text-nowrap">
-    <%--                                <a class="nav-link" href="#">Sign out</a>--%>
-                                    <a class="d-flex align-items-center text-muted" href="<c:url value="/admin-news?type=edit-view"/>" data-toggle="tooltip" title="Add News">
-                                        <span data-feather="plus-circle"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </c:if>
                     <dec:body/>
                 </main>
             </div>

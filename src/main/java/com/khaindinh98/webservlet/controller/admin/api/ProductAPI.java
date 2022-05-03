@@ -1,8 +1,8 @@
 package com.khaindinh98.webservlet.controller.admin.api;
 
-import com.khaindinh98.webservlet.model.CategoryModel;
+import com.khaindinh98.webservlet.model.ProductModel;
 import com.khaindinh98.webservlet.model.UserModel;
-import com.khaindinh98.webservlet.service.ICategoryService;
+import com.khaindinh98.webservlet.service.IProductService;
 import com.khaindinh98.webservlet.util.FormUtil;
 import com.khaindinh98.webservlet.util.JSONUtil;
 
@@ -15,11 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@WebServlet(urlPatterns = {"/api-admin-category/categories"})
-public class CategoryAPI extends HttpServlet{
+@WebServlet(urlPatterns = {"/api-admin-product/products"})
+public class ProductAPI extends HttpServlet{
 	
 	@Inject
-	private ICategoryService categoryService;
+	private IProductService productService;
+
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		req.setCharacterEncoding("UTF-8");
+//		resp.setContentType("application/json");
+//		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
+//		productModel productModel = productService.insert(jsonUtil.toModel(productModel.class));
+//		jsonUtil.toOutputStream(resp.getOutputStream(), productModel);
+//	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,9 +38,9 @@ public class CategoryAPI extends HttpServlet{
 		resp.setContentType("application/json");
 
         JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
-		CategoryModel categoryModel = jsonUtil.toModel(CategoryModel.class);
-		categoryModel = categoryService.insert(categoryModel);
-		jsonUtil.toOutputStream(resp.getOutputStream(), categoryModel);
+		ProductModel productModel = jsonUtil.toModel(ProductModel.class);
+		productModel = productService.insert(productModel);
+		jsonUtil.toOutputStream(resp.getOutputStream(), productModel);
 	}
 	
 	@Override
@@ -43,13 +52,13 @@ public class CategoryAPI extends HttpServlet{
 		JSONUtil jsonUtil = JSONUtil.getInstance(req.getReader());
 		UserModel userModel = (UserModel) req.getSession().getAttribute("userModel");
 
-		CategoryModel categoryModel = jsonUtil.toModel(CategoryModel.class);
-		categoryModel.setModifiedAt(LocalDateTime.now());
+		ProductModel productModel = jsonUtil.toModel(ProductModel.class);
+		productModel.setModifiedAt(LocalDateTime.now());
 		if(userModel!=null) {
-			categoryModel.setModifiedBy(userModel.getUsername());
+			productModel.setModifiedBy(userModel.getUsername());
 		}
-		categoryService.update(categoryModel);
-		jsonUtil.toOutputStream(resp.getOutputStream(), categoryModel);
+		productService.update(productModel);
+		jsonUtil.toOutputStream(resp.getOutputStream(), productModel);
 	}
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,9 +67,9 @@ public class CategoryAPI extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 //		JSONUtil jsonUtil = JSONUtil.getInstance(req.getInputStream());
-		CategoryModel categoryModel = FormUtil.getInstance().toModel(req, CategoryModel.class);
-//		newsService.delete(jsonUtil.toModel(NewsModel.class).getIds());
-		categoryService.delete(categoryModel.getId());
+		ProductModel productModel = FormUtil.getInstance().toModel(req, ProductModel.class);
+//		productService.delete(jsonUtil.toModel(productModel.class).getIds());
+		productService.delete(productModel.getId());
 		resp.getOutputStream().print("{}");
 	}
 }
