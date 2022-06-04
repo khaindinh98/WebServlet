@@ -35,7 +35,7 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 
 	@Override
 	public Long insert(ProductModel productModel) {
-		String query = "INSERT INTO `myblog`.`product` (`name`, `thumbnail`, `short_description`, `description`, `price`, `discount_price`, `quantity`, `category_id`, `created_at`, `modified_at`, `created_by`, `modified_by`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO `myblog`.`product` (`name_product`, `thumbnail`, `short_description`, `description`, `price`, `discount_price`, `quantity`, `category_id`, `created_at`, `modified_at`, `created_by`, `modified_by`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		String categoryCode = productModel.getCategoryCode();
 		CategoryModel categoryModel = categoryDAO.findByCategoryCode(categoryCode);
 		Long categoryId = categoryModel!=null?categoryModel.getId():null;
@@ -43,7 +43,6 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 				productModel.getNameProduct(),
 				productModel.getThumbnail(),
 				productModel.getShortDescription(),
-				productModel.getDescription(),
 				productModel.getDescription(),
 				productModel.getPrice(),
 				productModel.getDiscountPrice(),
@@ -57,12 +56,25 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 
 	@Override
 	public void update(ProductModel productModel) {
-		String query = "UPDATE news SET title = ?, content = ?, thumbnail = ?, shortdescription = ?, categoryid = ?, modifieddate = ?, modifiedby = ? WHERE id = ?";
+		String query = "UPDATE product SET name_product = ?, thumbnail = ?, short_description = ?, description = ?, price = ?, discount_price = ?, quantity = ?, category_id = ?, modified_at = ?, modified_by = ? WHERE ( id = ? )";
 		String categoryCode = productModel.getCategoryCode();
 		CategoryModel categoryModel = categoryDAO.findByCategoryCode(categoryCode);
 		Long categoryId = categoryModel!=null?categoryModel.getId():null;
-//		super.executeUpdate(query, newsModel.getTitle(), newsModel.getContent(), newsModel.getThumbnail(), newsModel.getShortDescription(), categoryId, newsModel.getModifiedAt(), newsModel.getModifiedBy(), newsModel.getId());
+		super.executeUpdate(query,
+				productModel.getNameProduct(),
+				productModel.getThumbnail(),
+				productModel.getShortDescription(),
+				productModel.getDescription(),
+				productModel.getPrice(),
+				productModel.getDiscountPrice(),
+				productModel.getQuantity(),
+				categoryId,
+				productModel.getModifiedAt(),
+				productModel.getModifiedBy(),
+				productModel.getId()
+		);
 	}
+
 
 	@Override
 	public void delete(Long id) {

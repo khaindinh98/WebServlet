@@ -55,7 +55,7 @@
             <div class="mb-3">
                 <label for="code">Code</label>
                 <div class="input-group">
-                    <textarea type="text" class="form-control" id="code" name="code" placeholder="Code" required>${categoryModel.code}</textarea>
+                    <input type="text" class="form-control" id="code" name="code" placeholder="Code" value="${categoryModel.code}" required>
                     <div class="invalid-feedback" style="width: 100%;">
                         Code is required.
                     </div>
@@ -85,17 +85,17 @@
                                 $("#form-category").serializeArray().forEach((e)=>{
                                     form_data[e.name] = e.value;
                                 });
-                                var news_id = $("#form-news #id").val();
-                                if(news_id && news_id!=""){
+                                var category_id = $("#form-category #id").val();
+                                if(category_id && category_id!=""){
                                     $.ajax({
-                                        url:"<c:url value="/api-admin-product/products"/>",
+                                        url:"<c:url value="/api-admin-category/categories"/>",
                                         contentType:"application/json",
                                         data:JSON.stringify(form_data),
                                         type:"PUT",
                                         success:function (){
                                             alert("Cập nhật thành công");
-                                            let url_list_news = "<c:url value="/admin-product?type=list-view"/>";
-                                            window.location.href = url_list_news;
+                                            let url_list_categories = "<c:url value="/admin-category?type=list-view"/>";
+                                            window.location.href = url_list_categories;
                                         },
                                         error:function(){
                                             alert("Cập nhật không thành công");
@@ -103,14 +103,14 @@
                                     });
                                 } else{
                                     $.ajax({
-                                        url:"<c:url value="/api-admin-product/products"/>",
+                                        url:"<c:url value="/api-admin-category/categories"/>",
                                         contentType:"application/json",
                                         data:JSON.stringify(form_data),
                                         type:"POST",
                                         success:function (){
                                             alert("Tạo thành công");
-                                            let url_list_news = "<c:url value="/admin-product?type=list-view"/>";
-                                            window.location.href = url_list_news;
+                                            let url_list_categories = "<c:url value="/admin-category?type=list-view"/>";
+                                            window.location.href = url_list_categories;
                                         },
                                         error:function(){
                                             alert("Tạo không thành công");

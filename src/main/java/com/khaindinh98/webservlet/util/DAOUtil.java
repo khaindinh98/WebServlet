@@ -1,5 +1,7 @@
 package com.khaindinh98.webservlet.util;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -33,6 +35,8 @@ public class DAOUtil {
                 pstmt.setString(i + 1, (String) obj);
             } else if (obj instanceof LocalDateTime) {
                 pstmt.setTimestamp(i + 1, Timestamp.valueOf((LocalDateTime) obj));
+            } else if (obj instanceof BigInteger) {
+                pstmt.setBigDecimal(i + 1, new BigDecimal((BigInteger) obj));
             }else {
                 pstmt.setNull(i + 1, java.sql.Types.NULL);
             }

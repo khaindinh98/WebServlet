@@ -72,7 +72,7 @@
                     <option value="">--None--</option>
                     <c:if test="${not empty listCategories}">
                         <c:forEach var="catagory" items="${listCategories}">
-                            <option value="${catagory.code}"<c:if test="${catagory.name == newsModel.categoryName}">selected</c:if>>${catagory.name}</option>
+                            <option value="${catagory.code}"<c:if test="${catagory.code == newsModel.categoryCode}">selected</c:if>>${catagory.name}</option>
                         </c:forEach>
                     </c:if>
                 </select>

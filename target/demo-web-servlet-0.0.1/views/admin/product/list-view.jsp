@@ -28,24 +28,34 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Code</th>
+                    <th>NameProduct</th>
+                    <th>Short Description</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Discount Price</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${not empty listCategories}">
-                    <c:forEach var="category" items="${listCategories}">
+                <c:if test="${not empty listProducts}">
+                    <c:forEach var="product" items="${listProducts}">
                         <tr>
                             <td>1</td>
-                            <td>${category.name}</td>
-                            <td>${category.code}</td>
+                            <td>${product.nameProduct}</td>
+                            <td>${product.shortDescription}</td>
+                            <td>${product.description}</td>
+                            <td>${product.price}</td>
+                            <td>${product.discountPrice}</td>
+                            <td>${product.quantity}</td>
+                            <td>${product.categoryName}</td>
                             <td>
                                 <span>
-                                    <button type="button" class="btn btn-primary" id="edit-category-${category.id}" onclick="edit_news(${category.id});">Edit</button>
+                                    <button type="button" class="btn btn-primary" id="edit-category-${product.id}" onclick="edit_product(${product.id});">Edit</button>
                                 </span>
                                 <span>
-                                    <button type="button" class="btn btn-secondary" id="delete-category-${category.id}" onclick="delete_news(${category.id});">Delete</button>
+                                    <button type="button" class="btn btn-secondary" id="delete-category-${product.id}" onclick="delete_product(${product.id});">Delete</button>
                                 </span>
                             </td>
                         </tr>
@@ -55,23 +65,18 @@
             </table>
         </div>
         <script type="text/javascript">
-            $("#form-category #name").onkeyup(function(){
-                let category_name =  $("#form-category #name").val();
-                let category_name_arr = category_name.split("\s+");
-                $("#form-category #name").val(category_name_arr.join("-"));
-            });
-            function edit_news(news_id){
-                let url_edit_news = "<c:url value="/admin-category?type=edit-view"/>&id="+news_id;
-                window.location.href = url_edit_news;
+            function edit_product(product_id){
+                let url_edit_products = "<c:url value="/admin-product?type=edit-view"/>&id="+product_id;
+                window.location.href = url_edit_products;
             }
 
-            function delete_news(news_id){
+            function delete_product(product_id){
                 $.ajax({
-                    url:"<c:url value="/api-admin-category/categories"/>?id="+news_id,
+                    url:"<c:url value="/api-admin-product/products"/>?id="+product_id,
                     type:"DELETE",
                     success:function (){
-                        let url_list_news = "<c:url value="/admin-category?type=list-view"/>";
-                        window.location.href = url_list_news;
+                        let url_edit_products = "<c:url value="/admin-product?type=list-view"/>";
+                        window.location.href = url_edit_products;
                     },
                     error:function(){
                         alert("Xóa không thành công");

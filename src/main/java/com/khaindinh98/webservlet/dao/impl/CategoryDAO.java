@@ -41,16 +41,16 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 	@Override
 	public CategoryModel insert(CategoryModel categoryModel) {
 //		String query = "INSERT INTO news (title, content, thumbnail, shortdescription, categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?, ?, ?)";
-		String query = "INSERT INTO category(code_category, name_category) VALUES(?,?)";
-		Long id = super.insert(query, categoryModel.getCode(), categoryModel.getName());
+		String query = "INSERT INTO category(code_category, name_category, created_at, created_by, modified_at, modified_by) VALUES(?, ?, ?, ?, ?, ?)";
+		Long id = super.insert(query, categoryModel.getCode(), categoryModel.getName(), categoryModel.getCreatedAt(), categoryModel.getCreatedBy(), categoryModel.getModifiedAt(), categoryModel.getModifiedBy());
 		return findOne(id);
 	}
 
 	@Override
 	public void update(CategoryModel categoryModel) {
 		// TODO Auto-generated method stub
-		String query = "UPDATE category SET code_category = ?, name_category = ? WHERE id = ?";
-		super.executeUpdate(query, categoryModel.getCode(), categoryModel.getName(), categoryModel.getId());
+		String query = "UPDATE category SET code_category = ?, name_category = ?, modified_at = ?, modified_by = ? WHERE id = ?";
+		super.executeUpdate(query, categoryModel.getCode(), categoryModel.getName(), categoryModel.getModifiedAt(), categoryModel.getModifiedBy(), categoryModel.getId());
 	}
 
 	@Override

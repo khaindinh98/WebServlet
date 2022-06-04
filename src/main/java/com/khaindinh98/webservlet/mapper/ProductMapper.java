@@ -17,8 +17,12 @@ public class ProductMapper extends AbstractRowMapper<ProductModel> {
 			productModel.setThumbnail(resultSet.getString("thumbnail"));
 			productModel.setShortDescription(resultSet.getString("short_description"));
 			productModel.setDescription(resultSet.getString("description"));
-			productModel.setPrice(resultSet.getBigDecimal("price").toBigInteger());
-			productModel.setDiscountPrice(resultSet.getBigDecimal("discount_price").toBigInteger());
+			if(resultSet.getBigDecimal("price")!=null){
+				productModel.setPrice(resultSet.getBigDecimal("price").toBigInteger());
+			}
+			if(resultSet.getBigDecimal("discount_price")!=null) {
+				productModel.setDiscountPrice(resultSet.getBigDecimal("discount_price").toBigInteger());
+			}
 			productModel.setQuantity(resultSet.getLong("quantity"));
 			productModel.setCategoryName(resultSet.getString("name_category"));
 			productModel.setCategoryCode(resultSet.getString("code_category"));
